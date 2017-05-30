@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences pref = getSharedPreferences("Shake", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
 
-                /*editor.remove("name");
+                editor.remove("name");
                 editor.remove("phoneNum");
-                editor.clear();*/
-                editor.putString("name", null);
-                editor.putString("phoneNum", null);
+                //editor.clear();
+                //editor.putString("name", null);
+                //editor.putString("phoneNum", null);
                 editor.commit();
 
                 String name, phNum;
