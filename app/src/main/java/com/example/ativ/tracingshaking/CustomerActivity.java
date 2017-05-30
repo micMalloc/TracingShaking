@@ -1,11 +1,12 @@
 package com.example.ativ.tracingshaking;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.MultiAutoCompleteTextView;
+//import android.widget.MultiAutoCompleteTextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
