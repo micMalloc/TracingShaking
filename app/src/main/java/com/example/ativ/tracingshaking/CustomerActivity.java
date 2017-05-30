@@ -1,6 +1,7 @@
 package com.example.ativ.tracingshaking;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,11 @@ public class CustomerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer);
 
         MultiFormatWriter gen = new MultiFormatWriter();
-        String data = "TEST";
+        SharedPreferences pref = getSharedPreferences("Shake", Activity.MODE_PRIVATE);
+        String name, phNum;
+
+        name = pref.getString("name", null); phNum = pref.getString("phoneNum", null);
+        String data = name + "#" + phNum;
 
         try {
             final int WIDTH = 400;

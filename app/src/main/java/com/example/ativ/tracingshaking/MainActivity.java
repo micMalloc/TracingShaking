@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         popInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(MainActivity.this, CustomerActivity.class);
-                //startActivity(i);
+                Intent i = new Intent(MainActivity.this, CustomerActivity.class);
+                startActivity(i);
             }
         });
     }
