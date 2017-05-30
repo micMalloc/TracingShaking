@@ -42,6 +42,8 @@ public class InfoActivity extends AppCompatActivity {
                 name = pref.getString("name", null);
                 phNum = pref.getString("phoneNum", null);
                 Toast.makeText(InfoActivity.this, name + " " + phNum, Toast.LENGTH_SHORT).show();
+
+                InfoActivity.this.finish();
             }
         });
     }
