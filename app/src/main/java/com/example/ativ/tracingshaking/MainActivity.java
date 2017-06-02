@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public Button goInfo;
     public Button popInfo;
     public Button initInfo;
+    public Button test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         goInfo = (Button)findViewById(R.id.inform);
         popInfo = (Button)findViewById(R.id.popInform);
         initInfo = (Button)findViewById(R.id.initInform);
+        test = (Button)findViewById(R.id.scanner);
 
         name = pref.getString("name", null);
         phNum = pref.getString("phoneNum", null);
@@ -70,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(MainActivity.this, InfoActivity.class);
                     startActivity(i);
                 }
+            }
+        });
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, ScannerTest.class);
+                startActivity(i);
             }
         });
     }

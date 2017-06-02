@@ -31,8 +31,11 @@ public class QRMaker extends  Activity{
         return data;
     }
 
-    public Bitmap getBitmap (String data) {
+    public Bitmap getBitmap () {
+        String data;
         MultiFormatWriter gen = new MultiFormatWriter();
+
+        data = getData();
 
         try {
             final int WIDTH = 400;
