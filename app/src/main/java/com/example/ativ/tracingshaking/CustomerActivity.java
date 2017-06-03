@@ -25,7 +25,7 @@ public class CustomerActivity extends AppCompatActivity {
         String name, phNum;
 
         name = pref.getString("name", null); phNum = pref.getString("phoneNum", null);
-        String data = name + "#" + phNum;
+        String data =  "sh#" + name + "#" + phNum;
 
         try {
             final int WIDTH = 400;

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,11 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences pref = getSharedPreferences("Shake", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
 
-                editor.remove("name");
-                editor.remove("phoneNum");
-                //editor.clear();
-                //editor.putString("name", null);
-                //editor.putString("phoneNum", null);
+                editor.clear();
                 editor.commit();
 
                 String name, phNum;
@@ -82,5 +79,25 @@ public class MainActivity extends AppCompatActivity {
                 new IntentIntegrator(MainActivity.this).initiateScan();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(MainActivity.this, "No Data", Toast.LENGTH_SHORT).show();
+            } else {
+                if (result.getContents().startsWith("sh")) {
+                    String[] arr = result.getContents().split("#");
+                    Toast.makeText(MainActivity.this, "Scanned: " + arr[1] + " " + arr[2], Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
+                }
+            }
+        } else {
+            Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+        }
     }
 }
