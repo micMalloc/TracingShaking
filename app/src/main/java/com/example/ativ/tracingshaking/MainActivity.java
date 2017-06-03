@@ -9,13 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+
 public class MainActivity extends AppCompatActivity {
 
     public String name, phNum;
     public Button goInfo;
     public Button popInfo;
     public Button initInfo;
-    public Button test;
+    public Button scanBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         goInfo = (Button)findViewById(R.id.inform);
         popInfo = (Button)findViewById(R.id.popInform);
         initInfo = (Button)findViewById(R.id.initInform);
-        test = (Button)findViewById(R.id.scanner);
+        scanBtn = (Button)findViewById(R.id.scanner);
 
         name = pref.getString("name", null);
         phNum = pref.getString("phoneNum", null);
@@ -74,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        test.setOnClickListener(new View.OnClickListener() {
+        scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ScannerTest.class);
-                startActivity(i);
+                new IntentIntegrator(MainActivity.this).initiateScan();
             }
         });
     }
