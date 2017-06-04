@@ -2,7 +2,9 @@ package com.example.ativ.tracingshaking;
 
 import android.app.Activity;
 import android.content.ContentProviderOperation;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
@@ -15,6 +17,17 @@ public class ContactManager extends Activity {
     private ArrayList<ContentProviderOperation> ops;
     private String displayName;
     private String mobileNumber;
+
+    @Override
+    protected void onCreate (Bundle saveInstance) {
+        super.onCreate(saveInstance);
+
+        Intent i = getIntent();
+        String name = i.getStringExtra("name");
+        String phNum = i.getStringExtra("phoneNum");
+
+        saveContact(name, phNum);
+    }
 
     public void saveContact (String name, String phNum) {
 

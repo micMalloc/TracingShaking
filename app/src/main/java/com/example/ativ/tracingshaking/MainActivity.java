@@ -91,9 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "No Data", Toast.LENGTH_SHORT).show();
             } else {
                 if (result.getContents().startsWith("sh")) {
+                    Intent i = new Intent(MainActivity.this, ContactManager.class);
                     String[] arr = result.getContents().split("#");
-                    //Toast.makeText(MainActivity.this, "Scanned: " + arr[1] + " " + arr[2], Toast.LENGTH_SHORT).show();
-                    cm.saveContact(arr[1], arr[2]);
+
+                    Toast.makeText(MainActivity.this, "Scanned: " + arr[1] + " " + arr[2], Toast.LENGTH_SHORT).show();
+
+                    i.putExtra("name", arr[1]); i.putExtra("phoneNum", arr[2]);
+                    startActivity(i);
                 } else {
                     Toast.makeText(MainActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
                 }
