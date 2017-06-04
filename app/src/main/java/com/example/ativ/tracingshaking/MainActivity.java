@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        ContactManager cm = new ContactManager();
 
         if (result != null) {
             if (result.getContents() == null) {
@@ -91,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 if (result.getContents().startsWith("sh")) {
                     String[] arr = result.getContents().split("#");
-                    Toast.makeText(MainActivity.this, "Scanned: " + arr[1] + " " + arr[2], Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Scanned: " + arr[1] + " " + arr[2], Toast.LENGTH_SHORT).show();
+                    cm.saveContact(arr[1], arr[2]);
                 } else {
                     Toast.makeText(MainActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
                 }
