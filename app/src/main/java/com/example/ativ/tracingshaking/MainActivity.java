@@ -14,6 +14,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
 
+    public DataManager dm = null;
     public String name, phNum;
     public Button goInfo;
     public Button popInfo;
@@ -25,15 +26,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences pref = getSharedPreferences("Shake", Activity.MODE_PRIVATE);
+        dm = new DataManager();
 
         goInfo = (Button)findViewById(R.id.inform);
         popInfo = (Button)findViewById(R.id.popInform);
         initInfo = (Button)findViewById(R.id.initInform);
         scanBtn = (Button)findViewById(R.id.scanner);
 
-        name = pref.getString("name", null);
-        phNum = pref.getString("phoneNum", null);
+        dm.setData(this);
+        name = dm.getName(); phNum = dm.getPhNum();
 
         if (name == null || phNum == null) {
             Intent i = new Intent(MainActivity.this, InfoActivity.class);
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         popInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, CustomerActivity.class);
+                Intent i = new Intent(MainActivity.this, QRMaker.class);
                 startActivity(i);
             }
         });
@@ -62,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
                 editor.clear();
                 editor.commit();
-
-                String name, phNum;
-                name = pref.getString("name", null);
-                phNum = pref.getString("phoneNum", null);
 
                 if (name == null || phNum == null) {
                     Intent i = new Intent(MainActivity.this, InfoActivity.class);

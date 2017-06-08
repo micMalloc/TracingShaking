@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
@@ -16,6 +17,13 @@ import com.google.zxing.common.BitMatrix;
 public class QRMaker extends  Activity{
 
     private Bitmap bitmap = null;
+
+    @Override
+    protected void onCreate (Bundle saveInstanceState) {
+        super.onCreate(saveInstanceState);
+        setContentView(R.layout.activity_customer);
+        popQR();
+    }
 
     public String getData () {
         String data;
@@ -31,7 +39,7 @@ public class QRMaker extends  Activity{
         return data;
     }
 
-    public Bitmap getBitmap () {
+    public void popQR () {
         String data;
         MultiFormatWriter gen = new MultiFormatWriter();
 
@@ -43,7 +51,7 @@ public class QRMaker extends  Activity{
 
             data = new String(data.getBytes("UTF-8"), "ISO-8859-1");
             BitMatrix byteMap = gen.encode(data, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
-            Bitmap bitmap = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888);
 
             for (int i = 0; i < WIDTH; ++i)
                 for (int j = 0; j < HEIGHT; ++j)
@@ -55,8 +63,6 @@ public class QRMaker extends  Activity{
 
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            return bitmap;
         }
     }
 }

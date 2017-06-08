@@ -27,6 +27,8 @@ public class ContactManager extends Activity {
         String phNum = i.getStringExtra("phoneNum");
 
         saveContact(name, phNum);
+
+        ContactManager.this.finish();
     }
 
     public void saveContact (String name, String phNum) {
