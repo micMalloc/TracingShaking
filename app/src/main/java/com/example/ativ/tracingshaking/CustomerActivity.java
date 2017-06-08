@@ -1,50 +1,35 @@
 package com.example.ativ.tracingshaking;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.nfc.Tag;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.MultiAutoCompleteTextView;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.common.BitMatrix;
 
 public class CustomerActivity extends AppCompatActivity {
 
+    public ImageView imageView = null;
+    private DataManager dm = null;
+    private String data = null;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
 
-        MultiFormatWriter gen = new MultiFormatWriter();
-        SharedPreferences pref = getSharedPreferences("Shake", Activity.MODE_PRIVATE);
-        String name, phNum;
+        FragmentManager fragmentManager =  getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        name = pref.getString("name", null); phNum = pref.getString("phoneNum", null);
-        String data =  "sh#" + name + "#" + phNum;
+        FragmentActivity1 fragmentActivity1 = new FragmentActivity1();
+        FragmentActivity2 fragmentActivity2 = new FragmentActivity2();
 
-        try {
-            final int WIDTH = 400;
-            final int HEIGHT = 400;
-
-            data = new String(data.getBytes("UTF-8"), "ISO-8859-1");
-            BitMatrix byteMap = gen.encode(data, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
-            Bitmap bitmap = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888);
-
-            for (int i = 0; i < WIDTH; ++i)
-                for (int j = 0; j < HEIGHT; ++j)
-                    bitmap.setPixel(i, j, byteMap.get(i, j) ? Color.BLACK : Color.WHITE);
-
-            ImageView viw = (ImageView) findViewById(R.id.qrView);
-            viw.setImageBitmap(bitmap);
-            viw.invalidate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        fragmentTransaction.add(android.R.id.list_container, fragmentActivity1);
+        fragmentTransaction.add(android.R.id.list_container, fragmentActivity2);
     }
 }

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dm = new DataManager();
+        dm = new DataManager(this);
 
         goInfo = (Button)findViewById(R.id.inform);
         popInfo = (Button)findViewById(R.id.popInform);
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         scanBtn = (Button)findViewById(R.id.scanner);
         imageView = (ImageView)findViewById(R.id.qrView);
 
-        dm.setData(this);
         name = dm.getName(); phNum = dm.getPhNum();
 
         if (name == null || phNum == null) {
@@ -54,10 +53,9 @@ public class MainActivity extends AppCompatActivity {
         popInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String data = "sh#" + name + "#" + phNum;
 
-                imageView.setImageBitmap(new QRMaker().getBitmap(data));
-                imageView.invalidate();
+                Intent i = new Intent(MainActivity.this, CustomerActivity.class);
+                startActivity(i);
             }
         });
         initInfo.setOnClickListener(new View.OnClickListener() {
