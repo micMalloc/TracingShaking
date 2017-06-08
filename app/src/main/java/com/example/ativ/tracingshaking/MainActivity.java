@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public Button popInfo;
     public Button initInfo;
     public Button scanBtn;
+    public ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         popInfo = (Button)findViewById(R.id.popInform);
         initInfo = (Button)findViewById(R.id.initInform);
         scanBtn = (Button)findViewById(R.id.scanner);
+        imageView = (ImageView)findViewById(R.id.qrView);
 
         dm.setData(this);
         name = dm.getName(); phNum = dm.getPhNum();
@@ -51,8 +54,10 @@ public class MainActivity extends AppCompatActivity {
         popInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, QRMaker.class);
-                startActivity(i);
+                String data = "sh#" + name + "#" + phNum;
+
+                imageView.setImageBitmap(new QRMaker().getBitmap(data));
+                imageView.invalidate();
             }
         });
         initInfo.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 editor.clear();
                 editor.commit();
 
+                name = pref.getString("name", null);
+                phNum = pref.getString("phoneNum", null);
                 if (name == null || phNum == null) {
                     Intent i = new Intent(MainActivity.this, InfoActivity.class);
                     startActivity(i);

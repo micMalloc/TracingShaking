@@ -14,36 +14,12 @@ import com.google.zxing.common.BitMatrix;
 /**
  * Created by ATIV on 2017-06-01.
  */
-public class QRMaker extends  Activity{
+public class QRMaker {
 
     private Bitmap bitmap = null;
 
-    @Override
-    protected void onCreate (Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_customer);
-        popQR();
-    }
-
-    public String getData () {
-        String data;
-        String name, phNum;
-        SharedPreferences pref = getSharedPreferences("Shake", Activity.MODE_PRIVATE);
-
-        name = pref.getString("name", null); phNum = pref.getString("phone", null);
-        if (name == null || phNum == null)
-            data = null;
-        else
-            data = name + "#" + phNum;
-
-        return data;
-    }
-
-    public void popQR () {
-        String data;
+    public Bitmap getBitmap (String data) {
         MultiFormatWriter gen = new MultiFormatWriter();
-
-        data = getData();
 
         try {
             final int WIDTH = 400;
@@ -57,12 +33,9 @@ public class QRMaker extends  Activity{
                 for (int j = 0; j < HEIGHT; ++j)
                     bitmap.setPixel(i, j, byteMap.get(i, j) ? Color.BLACK : Color.WHITE);
 
-            ImageView viw = (ImageView) findViewById(R.id.qrView);
-            viw.setImageBitmap(bitmap);
-            viw.invalidate();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return bitmap;
     }
 }
