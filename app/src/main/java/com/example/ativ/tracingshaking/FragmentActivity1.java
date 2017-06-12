@@ -17,9 +17,11 @@ public class FragmentActivity1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //return super.onCreateView(inflater, container, savedInstanceState);
-        //new IntentIntegrator(getActivity()).setOrientationLocked(false).setBeepEnabled(false).
-               //setCaptureActivity(FragmentActivity1.class).initiateScan();
+
+        new IntentIntegrator(getActivity()).setOrientationLocked(false).
+                setBeepEnabled(false).
+                setCaptureActivity(Test.class).
+                initiateScan();
         //TODO 반드시 스캐너 조정 해보자!
         return inflater.inflate(R.layout.activity_fragment1, container, true);
     }

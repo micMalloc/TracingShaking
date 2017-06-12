@@ -79,8 +79,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //new IntentIntegrator(MainActivity.this).initiateScan();
-                new IntentIntegrator(MainActivity.this).setOrientationLocked(false).setBeepEnabled(false)
-                        .initiateScan();
+                /*new IntentIntegrator(MainActivity.this).setOrientationLocked(false).setBeepEnabled(false)
+                        .initiateScan();*/
+                new IntentIntegrator(MainActivity.this).setOrientationLocked(false).
+                        setBeepEnabled(false).
+                        setCaptureActivity(Test.class).
+                        initiateScan();
             }
         });
     }
