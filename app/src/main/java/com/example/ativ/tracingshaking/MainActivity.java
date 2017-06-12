@@ -78,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
         scanBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new IntentIntegrator(MainActivity.this).initiateScan();
+                //new IntentIntegrator(MainActivity.this).initiateScan();
+                new IntentIntegrator(MainActivity.this).setOrientationLocked(false).setBeepEnabled(false)
+                        .initiateScan();
             }
         });
     }
