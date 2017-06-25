@@ -9,9 +9,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -27,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public Button initInfo;
     public Button scanBtn;
     public ImageView imageView;
-    public ToggleButton startService;
+    public ToggleButton serviceBtn;
+    public TextView serviceTag;
 
     private long lastTime;
     private float speed;
@@ -59,7 +62,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         initInfo = (Button)findViewById(R.id.initInform);
         scanBtn = (Button)findViewById(R.id.scanner);
         imageView = (ImageView)findViewById(R.id.qrView);
-        startService = (ToggleButton)findViewById(R.id.ServiceBtn);
+        serviceBtn = (ToggleButton)findViewById(R.id.serviceBtn);
+        serviceTag = (TextView)findViewById(R.id.textView);
+        serviceTag.setText("Service Tag");
 
         name = dm.getName(); phNum = dm.getPhNum();
 
@@ -71,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         goInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(MainActivity.this
+                        , "HI", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, InfoActivity.class);
                 startActivity(i);
             }
@@ -78,9 +85,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         popInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i = new Intent(MainActivity.this, CustomerActivity.class);
-                startActivity(i);
+                Toast.makeText(MainActivity.this, "Start Service", Toast.LENGTH_SHORT).show();
+                startService(new Intent(MainActivity.this, ShakeService.class));
+                /*Intent i = new Intent(MainActivity.this, CustomerActivity.class);
+                startActivity(i);*/
             }
         });
         initInfo.setOnClickListener(new View.OnClickListener() {
@@ -112,13 +120,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         initiateScan();
             }
         });
-        startService.setOnClickListener(new View.OnClickListener() {
+        serviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (startService.isChecked()) {
+                if (serviceBtn.isChecked()) {
                     /* Start Service */
+                    Toast.makeText(MainActivity.this, "Start Service", Toast.LENGTH_SHORT).show();
+                    Log.d("MainActivity", "Start Service");
+                    startService(new Intent(MainActivity.this, ShakeService.class));
                 } else {
                     /* Stop Service */
+                    Toast.makeText(MainActivity.this, "Stop Service", Toast.LENGTH_SHORT).show();
+                    Log.d("MainActivity", "Stop Service");
+                    stopService(new Intent(MainActivity.this, ShakeService.class));
                 }
             }
         });
