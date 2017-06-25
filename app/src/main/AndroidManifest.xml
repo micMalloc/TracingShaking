@@ -20,7 +20,6 @@
         </activity>
         <activity android:name=".ContactManager"/>
         <activity android:name=".InfoActivity" />
-        <activity android:name=".QRMaker" />
         <activity android:name=".Test"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
@@ -28,6 +27,12 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             />
         <activity android:name=".ShakeSensor" />
+        <service
+            android:name=".ShakeService">
+            <intent-filter>
+                <action android:name="android.intent.action.TEST" />
+            </intent-filter>
+        </service>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public Button initInfo;
     public Button scanBtn;
     public ImageView imageView;
+    public ToggleButton startService;
 
     private long lastTime;
     private float speed;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         initInfo = (Button)findViewById(R.id.initInform);
         scanBtn = (Button)findViewById(R.id.scanner);
         imageView = (ImageView)findViewById(R.id.qrView);
+        startService = (ToggleButton)findViewById(R.id.ServiceBtn);
 
         name = dm.getName(); phNum = dm.getPhNum();
 
@@ -107,6 +110,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         setBeepEnabled(false).
                         setCaptureActivity(Test.class).
                         initiateScan();
+            }
+        });
+        startService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (startService.isChecked()) {
+                    /* Start Service */
+                } else {
+                    /* Stop Service */
+                }
             }
         });
     }
