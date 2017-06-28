@@ -20,8 +20,9 @@ public class ShakeService extends Service implements SensorEventListener {
     private float lastY;
     private float lastZ;
     private float x, y, z;
+    public boolean isScanning = false;
 
-    private static final int SHAKE_THRESHOLD = 800;
+    private static final int SHAKE_THRESHOLD = 1500;
     private static final int DATA_X = SensorManager.DATA_X;
     private static final int DATA_Y = SensorManager.DATA_Y;
     private static final int DATA_Z = SensorManager.DATA_Z;
@@ -88,13 +89,14 @@ public class ShakeService extends Service implements SensorEventListener {
                 z = sensorEvent.values[SensorManager.DATA_Z];
 
                 speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
-
-                if (speed > SHAKE_THRESHOLD) {
+                if (speed > SHAKE_THRESHOLD && !isScanning) {
+                    isScanning = true;
                     Intent i = new Intent(this, CustomerActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
+                } else {
+                    isScanning = false;
                 }
-
                 lastX = sensorEvent.values[SensorManager.DATA_X];
                 lastY = sensorEvent.values[SensorManager.DATA_Y];
                 lastZ = sensorEvent.values[SensorManager.DATA_Z];

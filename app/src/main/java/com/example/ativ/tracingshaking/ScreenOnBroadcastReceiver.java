@@ -11,6 +11,7 @@ public class ScreenOnBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Intent i = new Intent(context, ShakeService.class);
+        context.startService(i);
     }
 }
